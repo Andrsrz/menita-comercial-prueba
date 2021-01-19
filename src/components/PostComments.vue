@@ -5,12 +5,16 @@
 			<h2>{{ comment.body }}</h2>
 			<p class='username'>By: {{ comment.name }}</p>
 		</span>
+		<AddComment></AddComment>
 	</div>
 </template>
 
 <script>
+import AddComment from '@/components/AddComment'
+
 export default {
 	name: 'PostComments',
+	components: { AddComment },
 	props: { postid: Number },
 	data(){
 		return {
@@ -39,7 +43,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .username {
 	text-align: right !important;
 }
