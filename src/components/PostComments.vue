@@ -5,12 +5,13 @@
 			<h2>{{ comment.body }}</h2>
 			<p class='username'>By: {{ comment.name }}</p>
 		</span>
-		<AddComment></AddComment>
+		<AddComment/>
 	</div>
 </template>
 
 <script>
 import AddComment from '@/components/AddComment'
+import { EventBus } from '@/eventBus.js'
 
 export default {
 	name: 'PostComments',
@@ -39,6 +40,18 @@ export default {
 	    },
 	    immediate: true
 		}
+	},
+	created(){
+		EventBus.$on('send-comment', comment => {
+			this.comments.push({
+					body: comment.body,
+					email: comment.email,
+					id: comment.id,
+					name: comment.name,
+					postId: this.postid
+			})
+			this.$nextTick()
+		})
 	}
 }
 </script>
