@@ -13,7 +13,8 @@ export default {
 	name: 'AddComment',
 	data(){
 		return{
-			comment: ''
+			comment: '',
+			index: null
 		}
 	},
 	methods: {
@@ -23,10 +24,18 @@ export default {
 					email: 'fake@fake.fake',
 					id: 1000,
 					name: 'fakeuser',
-					postId: 0
+					postId: 0,
+					index: this.index
 			})
 			this.comment = ''
+			this.index = null
 		}
+	},
+	created(){
+		EventBus.$on('edit-comment', comment => {
+			this.comment = comment.body
+			this.index = comment.index
+		})
 	}
 }
 </script>

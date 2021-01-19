@@ -36,6 +36,12 @@ export default {
 					console.error(error)
 				})
 		},
+		edit(index){
+			EventBus.$emit('edit-comment', {
+					body: this.comments[index].body,
+					index: index
+			})
+		},
 		deleteComment(index){
 			this.comments.splice(index, 1)
 		}
@@ -50,13 +56,17 @@ export default {
 	},
 	created(){
 		EventBus.$on('send-comment', comment => {
-			this.comments.push({
+			if(!comment.index){
+				this.comments.push({
 					body: comment.body,
 					email: comment.email,
 					id: comment.id,
 					name: comment.name,
 					postId: this.postid
-			})
+				})
+			}else if(comment.index){
+				this.comments[comment.index].body = comment.body
+			}
 		})
 	}
 }
