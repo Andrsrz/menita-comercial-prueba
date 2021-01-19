@@ -1,7 +1,8 @@
 <template>
 	<div class="comments">
+		<p>Comments</p>
 		<span v-for='comment in comments'>
-			<h4>{{ comment.name }}</h4>
+			<h4>By: {{ comment.name }}</h4>
 			<h2>{{ comment.body }}</h2>
 		</span>
 	</div>
@@ -21,7 +22,6 @@ export default {
 				fetch(process.env.VUE_APP_GET_POST + id + "/comments")
 				.then(response => response.json())
 				.then(data => {
-					console.log(data)
 					this.comments = data
 				}).catch(error => {
 					console.error(error)
