@@ -2,8 +2,8 @@
 	<div class="comments">
 		<p>Comments</p>
 		<span v-for='comment in comments'>
-			<h4>By: {{ comment.name }}</h4>
 			<h2>{{ comment.body }}</h2>
+			<p class='username'>By: {{ comment.name }}</p>
 		</span>
 	</div>
 </template>
@@ -38,3 +38,9 @@ export default {
 	}
 }
 </script>
+
+<style>
+.username {
+	text-align: right !important;
+}
+</style>
