@@ -1,11 +1,11 @@
 <template>
 	<div class="post">
 		<span class="actual-post">
-			<h4>{{ user.username }}</h4>
+			<h4>By: {{ user.username }}</h4>
 			<h1>{{ post.title }}</h1>
 			<h3>{{ post.body }}</h3>
 		</span>
-		<p>Comments</p>
+		<hr />
 		<PostComments :postid='postid'/>
 	</div>
 </template>
@@ -20,12 +20,13 @@ export default {
 	data(){
 		return {
 			post: {},
-			user: {}
+			user: {},
+			noPost: false
 		}
 	},
 	methods: {
-		getPost(){
-			fetch(process.env.VUE_APP_GET_POST + this.postid)
+		getPost(id){
+			fetch(process.env.VUE_APP_GET_POST + id)
 				.then(response => response.json())
 				.then(data => {
 					this.post = data
@@ -45,8 +46,25 @@ export default {
 				})
 		}
 	},
-	created(){
-		this.getPost()
+	watch: {
+	  postid: {
+	    handler: function (postid) {
+				this.getPost(postid)
+	    },
+	    immediate: true
+		}
 	}
 }
 </script>
+
+<style scoped>
+.post {
+	display: block;
+	width: 75%;
+	margin: auto;
+}
+
+.post > * {
+	text-align: left;
+}
+</style>
