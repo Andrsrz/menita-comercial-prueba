@@ -57,7 +57,6 @@ export default {
 					name: comment.name,
 					postId: this.postid
 			})
-			this.$nextTick()
 		})
 	}
 }
