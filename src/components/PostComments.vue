@@ -1,9 +1,13 @@
 <template>
 	<div class="comments">
 		<p>Comments</p>
-		<span v-for='comment in comments'>
+		<span v-for='(comment, index) in comments'>
 			<h2>{{ comment.body }}</h2>
 			<p class='username'>By: {{ comment.name }}</p>
+			<span v-if="comment.name == 'fakeuser'">
+					<a @click='edit(index)'>Edit</a> |
+					<a @click='deleteComment(index)'>Delete</a>
+			</span>
 		</span>
 		<AddComment/>
 	</div>
@@ -31,6 +35,9 @@ export default {
 				}).catch(error => {
 					console.error(error)
 				})
+		},
+		deleteComment(index){
+			this.comments.splice(index, 1)
 		}
 	},
 	watch: {
@@ -59,5 +66,9 @@ export default {
 <style scoped>
 .username {
 	text-align: right !important;
+}
+
+a {
+	cursor: pointer;
 }
 </style>
